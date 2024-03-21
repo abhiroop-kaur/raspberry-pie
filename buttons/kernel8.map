@@ -1,0 +1,155 @@
+
+Discarded input sections
+
+ .comment       0x0000000000000000       0x2f build/main.o
+ .comment       0x0000000000000000       0x2f build/mbox.o
+ .comment       0x0000000000000000       0x2f build/ssp.o
+ .comment       0x0000000000000000       0x2f build/uart.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD build/start.o
+LOAD build/main.o
+LOAD build/mbox.o
+LOAD build/ssp.o
+LOAD build/uart.o
+                0x0000000000080000                . = 0x80000
+
+.text           0x0000000000080000      0x844
+ *(.text.boot)
+ .text.boot     0x0000000000080000       0x50 build/start.o
+                0x0000000000080000                _start
+ *(.text .text.* .gnu.linkonce.t*)
+ .text          0x0000000000080050        0x0 build/start.o
+ .text          0x0000000000080050      0x420 build/main.o
+                0x0000000000080050                setup
+                0x0000000000080124                wait_function
+                0x0000000000080174                Read_SNES
+                0x000000000008026c                main
+ .text          0x0000000000080470       0xac build/mbox.o
+                0x0000000000080470                mbox_call
+ .text          0x000000000008051c       0x1c build/ssp.o
+                0x000000000008051c                __stack_chk_fail
+ .text          0x0000000000080538      0x30c build/uart.o
+                0x0000000000080538                spin_for_cycles
+                0x000000000008056c                uart_init
+                0x00000000000806d8                uart_send
+                0x0000000000080718                uart_getc
+                0x0000000000080768                uart_puts
+                0x00000000000807c4                uart_hex
+
+.iplt           0x0000000000080844        0x0
+ .iplt          0x0000000000080844        0x0 build/start.o
+
+.rodata         0x0000000000080848      0x18a
+ *(.rodata .rodata.* .gnu.linkonce.r*)
+ .rodata        0x0000000000080848      0x162 build/main.o
+ *fill*         0x00000000000809aa        0x6 
+ .rodata        0x00000000000809b0       0x22 build/ssp.o
+                [!provide]                        PROVIDE (_data = .)
+
+.rela.dyn       0x00000000000809d8        0x0
+ .rela.iplt     0x00000000000809d8        0x0 build/start.o
+ .rela.text.boot
+                0x00000000000809d8        0x0 build/start.o
+
+.data           0x00000000000809d8        0x8
+ *(.data .data.* .gnu.linkonce.d*)
+ .data          0x00000000000809d8        0x0 build/start.o
+ .data          0x00000000000809d8        0x8 build/main.o
+                0x00000000000809d8                gpio
+ .data          0x00000000000809e0        0x0 build/mbox.o
+ .data          0x00000000000809e0        0x0 build/ssp.o
+ .data          0x00000000000809e0        0x0 build/uart.o
+
+.igot.plt       0x00000000000809e0        0x0
+ .igot.plt      0x00000000000809e0        0x0 build/start.o
+
+.bss            0x00000000000809e0       0xb0
+                0x00000000000809e0                . = ALIGN (0x10)
+                0x00000000000809e0                __bss_start = .
+ *(.bss .bss.*)
+ .bss           0x00000000000809e0        0x0 build/start.o
+ .bss           0x00000000000809e0       0x1e build/main.o
+                0x00000000000809e0                buttons
+ *fill*         0x00000000000809fe        0x2 
+ .bss           0x0000000000080a00       0x90 build/mbox.o
+                0x0000000000080a00                mbox
+ .bss           0x0000000000080a90        0x0 build/ssp.o
+ .bss           0x0000000000080a90        0x0 build/uart.o
+ *(COMMON)
+                0x0000000000080a90                __bss_end = .
+                0x0000000000080a90                _end = .
+
+/DISCARD/
+ *(.comment)
+ *(.gnu*)
+ *(.note*)
+ *(.eh_frame*)
+                0x0000000000000016                __bss_size = ((__bss_end - __bss_start) >> 0x3)
+OUTPUT(kernel8.elf elf64-littleaarch64)
+LOAD linker stubs
+
+.debug_info     0x0000000000000000      0x490
+ .debug_info    0x0000000000000000      0x1c5 build/main.o
+ .debug_info    0x00000000000001c5       0xba build/mbox.o
+ .debug_info    0x000000000000027f       0x68 build/ssp.o
+ .debug_info    0x00000000000002e7      0x1a9 build/uart.o
+
+.debug_abbrev   0x0000000000000000      0x320
+ .debug_abbrev  0x0000000000000000      0x102 build/main.o
+ .debug_abbrev  0x0000000000000102       0x98 build/mbox.o
+ .debug_abbrev  0x000000000000019a       0x60 build/ssp.o
+ .debug_abbrev  0x00000000000001fa      0x126 build/uart.o
+
+.debug_aranges  0x0000000000000000       0xc0
+ .debug_aranges
+                0x0000000000000000       0x30 build/main.o
+ .debug_aranges
+                0x0000000000000030       0x30 build/mbox.o
+ .debug_aranges
+                0x0000000000000060       0x30 build/ssp.o
+ .debug_aranges
+                0x0000000000000090       0x30 build/uart.o
+
+.debug_line     0x0000000000000000      0x3c8
+ .debug_line    0x0000000000000000      0x158 build/main.o
+ .debug_line    0x0000000000000158       0x9b build/mbox.o
+ .debug_line    0x00000000000001f3       0x5c build/ssp.o
+ .debug_line    0x000000000000024f      0x179 build/uart.o
+
+.debug_str      0x0000000000000000      0x154
+ .debug_str     0x0000000000000000       0xfd build/main.o
+                                        0x136 (size before relaxing)
+ .debug_str     0x00000000000000fd        0xf build/mbox.o
+                                         0x7e (size before relaxing)
+ .debug_str     0x000000000000010c       0x11 build/ssp.o
+                                         0x62 (size before relaxing)
+ .debug_str     0x000000000000011d       0x37 build/uart.o
+                                         0xc4 (size before relaxing)
+
+.debug_line_str
+                0x0000000000000000       0x82
+ .debug_line_str
+                0x0000000000000000       0x52 build/main.o
+                                         0x96 (size before relaxing)
+ .debug_line_str
+                0x0000000000000052        0xe build/mbox.o
+                                         0x8f (size before relaxing)
+ .debug_line_str
+                0x0000000000000060        0xd build/ssp.o
+                                         0x93 (size before relaxing)
+ .debug_line_str
+                0x000000000000006d       0x15 build/uart.o
+                                         0x96 (size before relaxing)
+
+.debug_frame    0x0000000000000000      0x1e8
+ .debug_frame   0x0000000000000000       0x98 build/main.o
+ .debug_frame   0x0000000000000098       0x30 build/mbox.o
+ .debug_frame   0x00000000000000c8       0x30 build/ssp.o
+ .debug_frame   0x00000000000000f8       0xf0 build/uart.o
