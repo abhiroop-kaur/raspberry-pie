@@ -1,1 +1,1 @@
-# raspberry-pie
+# raspberry-pi
